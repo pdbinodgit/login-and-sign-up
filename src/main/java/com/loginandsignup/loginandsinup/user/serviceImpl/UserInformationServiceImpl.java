@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserInformationServiceImpl implements UserInformationService {
 
@@ -17,10 +19,10 @@ public class UserInformationServiceImpl implements UserInformationService {
     UserInformationRepository userInformationRepository;
 
     @Override
-    public ResponseEntity<Response<?>> saveUserInformation(UserInformation information) {
+    public void saveUserInformation(UserInformation information) {
         userInformationValidation(information);
         userInformationRepository.save(information);
-        return ResponseEntity.status(HttpStatus.OK).body(new Response<>("Save successfully.",information));
+
     }
 
     private  void userInformationValidation(UserInformation information) {
@@ -33,7 +35,7 @@ public class UserInformationServiceImpl implements UserInformationService {
     }
 
     @Override
-    public ResponseEntity<Response<?>> getAllUser() {
-        return ResponseEntity.status(HttpStatus.OK).body(new Response<>("Successfully",userInformationRepository.findAll()));
+    public List<UserInformation> getAllUser() {
+        return userInformationRepository.findAll();
     }
 }
