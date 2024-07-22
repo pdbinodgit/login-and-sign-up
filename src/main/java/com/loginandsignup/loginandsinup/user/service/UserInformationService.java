@@ -4,9 +4,11 @@ import com.loginandsignup.loginandsinup.customresponse.Response;
 import com.loginandsignup.loginandsinup.user.model.UserInformation;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 public interface UserInformationService {
 
-    public ResponseEntity<Response<?>> saveUserInformation(UserInformation information);
+    public void saveUserInformation(UserInformation information);
 
-    public ResponseEntity<Response<?>> getAllUser();
+    public List<UserInformation> getAllUser();
 }
