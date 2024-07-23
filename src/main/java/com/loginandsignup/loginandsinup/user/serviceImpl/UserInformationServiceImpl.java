@@ -27,10 +27,10 @@ public class UserInformationServiceImpl implements UserInformationService {
 
     private  void userInformationValidation(UserInformation information) {
         if (information.getUsername()!=null && information.getUsername().equals("")){
-            throw new CustomException("Validation Error: The provided username must be null, but it is not.");
+            throw new CustomException("Validation Error: The provided username must be null, but it is not.",HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST);
         }
         if (information.getPassword()!=null && information.getPassword().equals("")){
-            throw new CustomException("Validation Error: The provided password must be null, but it is not.");
+            throw new CustomException("Validation Error: The provided password must be null, but it is not.",HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST);
         }
     }
 
