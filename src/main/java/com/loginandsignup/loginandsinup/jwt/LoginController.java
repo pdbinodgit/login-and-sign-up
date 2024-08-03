@@ -1,0 +1,43 @@
+package com.loginandsignup.loginandsinup.jwt;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+        @RequestMapping("/login")
+public class LoginController {
+
+    @Autowired
+    AuthenticationManager authenticationManager;
+    @Autowired
+    JwtUtils jwtUtils;
+
+
+
+    @PostMapping("/generateToken")
+    public LoginResponse loginRequest(@RequestBody LoginRequest request){
+        Authentication authentication;
+        try {
+            authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),request.getPassword()));
+
+        }catch (Exception e){
+
+            return new LoginResponse();
+        }
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        UserDetails userDetails= (UserDetails) authentication.getPrincipal();
+        String jwtToken=jwtUtils.generateJwtTokenFromUserName(userDetails);
+
+        return new LoginResponse(jwtToken, userDetails.getUsername());
+    }
+}
