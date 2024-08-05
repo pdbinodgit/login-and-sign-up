@@ -8,6 +8,7 @@ import com.loginandsignup.loginandsinup.user.service.UserInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,10 +18,13 @@ public class UserInformationServiceImpl implements UserInformationService {
 
     @Autowired
     UserInformationRepository userInformationRepository;
+    @Autowired
+    PasswordEncoder encoder;
 
     @Override
     public void saveUserInformation(UserInformation information) {
         userInformationValidation(information);
+        information.setPassword(encoder.encode(information.getPassword()));
         userInformationRepository.save(information);
 
     }
