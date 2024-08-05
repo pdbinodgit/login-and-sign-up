@@ -1,6 +1,9 @@
 package com.loginandsignup.loginandsinup.jwt;
 
+import com.loginandsignup.loginandsinup.customresponse.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,19 +28,20 @@ public class LoginController {
 
 
     @PostMapping("/generateToken")
-    public LoginResponse loginRequest(@RequestBody LoginRequest request){
+    public ResponseEntity<Response<?>> loginRequest(@RequestBody LoginRequest request){
         Authentication authentication;
         try {
             authentication=authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),request.getPassword()));
 
         }catch (Exception e){
 
-            return new LoginResponse();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new Response<>("Invalid username and password.",401,HttpStatus.UNAUTHORIZED,request));
         }
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetails userDetails= (UserDetails) authentication.getPrincipal();
         String jwtToken=jwtUtils.generateJwtTokenFromUserName(userDetails);
 
-        return new LoginResponse(jwtToken, userDetails.getUsername());
+        return ResponseEntity.status(HttpStatus.OK).body(new Response<>("Success",200,HttpStatus.OK,request));
+
     }
 }
