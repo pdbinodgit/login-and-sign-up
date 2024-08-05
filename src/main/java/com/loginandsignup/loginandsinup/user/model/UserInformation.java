@@ -1,5 +1,6 @@
 package com.loginandsignup.loginandsinup.user.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,6 +30,7 @@ public class UserInformation implements UserDetails {
 
     private String username;
 
+    @JsonIgnore
     private String password;
 
     public long getId() {
@@ -77,6 +79,7 @@ public class UserInformation implements UserDetails {
      * @return the authorities, sorted by natural key (never <code>null</code>)
      */
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
     }
@@ -110,6 +113,7 @@ public class UserInformation implements UserDetails {
      * <code>false</code> if no longer valid (ie expired)
      */
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
@@ -121,6 +125,7 @@ public class UserInformation implements UserDetails {
      * @return <code>true</code> if the user is not locked, <code>false</code> otherwise
      */
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
@@ -133,6 +138,7 @@ public class UserInformation implements UserDetails {
      * <code>false</code> if no longer valid (ie expired)
      */
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
@@ -144,6 +150,7 @@ public class UserInformation implements UserDetails {
      * @return <code>true</code> if the user is enabled, <code>false</code> otherwise
      */
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }
