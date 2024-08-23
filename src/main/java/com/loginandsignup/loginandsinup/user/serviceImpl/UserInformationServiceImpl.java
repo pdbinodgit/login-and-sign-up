@@ -1,13 +1,11 @@
 package com.loginandsignup.loginandsinup.user.serviceImpl;
 
 import com.loginandsignup.loginandsinup.customexception.CustomException;
-import com.loginandsignup.loginandsinup.customresponse.Response;
 import com.loginandsignup.loginandsinup.user.model.UserInformation;
 import com.loginandsignup.loginandsinup.user.repository.UserInformationRepository;
 import com.loginandsignup.loginandsinup.user.service.UserInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

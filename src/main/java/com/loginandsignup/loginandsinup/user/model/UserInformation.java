@@ -30,6 +30,8 @@ public class UserInformation implements UserDetails {
 
     private String username;
 
+    private String role;
+
     @JsonIgnore
     private String password;
 
@@ -71,6 +73,14 @@ public class UserInformation implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     /**
